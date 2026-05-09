@@ -19,3 +19,6 @@ bin/
 
 .idea
 *.log
+
+# Local user secrets
+config/user-settings.yaml

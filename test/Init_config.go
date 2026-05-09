@@ -7,7 +7,7 @@ import (
 func readConfig() (*basic.ConfigHelper, *basic.LoggerHelper, error) {
 
 	configHelper, err := basic.InitConfigHelper(
-		"../config/user-settings.yaml",
+		"../config/user-settings.example.yaml",
 		"../config/program-settings.yaml",
 	)
 	if err != nil {

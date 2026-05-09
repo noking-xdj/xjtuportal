@@ -17,6 +17,8 @@
   > Intel 和 AMD 所出品的绝大部分 CPU 的架构为 amd64  
   > 使用 ARM 架构 CPU 的消费级产品多为智能手机
 * 确保程序和```config```文件夹位于同一目录下，```config```文件夹内的所有文件不要更改其文件名
+* 首次使用前，将```config/user-settings.example.yaml```复制为```config/user-settings.yaml```，再填写账号、密码等本地配置
+  > ```config/user-settings.yaml```包含个人登录信息，默认不会被 Git 跟踪，请勿提交到公开仓库
 * 运行程序（默认启用```interact```模式）
 * 按照提示，选择“快速设置”，按照提示输入信息并确认
 * 重新运行程序，之后可按照提示执行登录、登出等操作
