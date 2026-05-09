@@ -100,9 +100,8 @@ func (sessionListHelper *SessionListHelper) sessionListPortalGet() (sessionListP
 		Value: sessionListHelper.OnlineHelper.OnlineResponse.Token,
 	})
 
-	_, body, _, err := sessionListHelper.OnlineHelper.requestHelper.SendRequest(
+	_, body, _, err := sessionListHelper.OnlineHelper.requestHelper.SendEncryptedRequest(
 		sessionListHelper.sessionListUrl,
-		"GET",
 		nil,
 		header,
 		cookies,
@@ -263,10 +262,11 @@ func (sessionListHelper *SessionListHelper) LogoutDelete(uniqueId string) (statu
 		Value: sessionListHelper.OnlineHelper.OnlineResponse.Token,
 	})
 
-	_, _, statusCode, err = sessionListHelper.OnlineHelper.requestHelper.SendRequest(
-		fmt.Sprintf("%s/%s", sessionListHelper.logoutUrl, uniqueId),
-		"DELETE",
-		nil,
+	_, _, statusCode, err = sessionListHelper.OnlineHelper.requestHelper.SendEncryptedRequest(
+		sessionListHelper.logoutUrl,
+		struct {
+			AcctUniqueId string `json:"acctUniqueId"`
+		}{AcctUniqueId: uniqueId},
 		header,
 		cookies,
 	)

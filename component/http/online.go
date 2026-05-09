@@ -1,7 +1,6 @@
 package http
 
 import (
-	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -92,25 +91,15 @@ func (onlineHelper *OnlineHelper) OnlinePost(redirectUrl string) (int, error) {
 
 	onlineHelper.authData.RedirectUrl = redirectUrl
 
-	var data bytes.Buffer
-	enc := json.NewEncoder(&data)
-	enc.SetEscapeHTML(false)
-	err := enc.Encode(onlineHelper.authData)
-	if err != nil {
-		err = errors.New(fmt.Sprintf("http/online: Cannot create online request json data [%v]", err))
-		return -1, err
-	}
-
 	header := &http.Header{}
 	header.Set("Content-Type", "application/json")
 
 	cookies := make([]*http.Cookie, 0, 2)
 	cookies = append(cookies, &http.Cookie{Name: "redirectUrl", Value: redirectUrl})
 
-	_, body, statusCode, err := onlineHelper.requestHelper.SendRequest(
+	_, body, statusCode, err := onlineHelper.requestHelper.SendEncryptedRequest(
 		onlineHelper.onlineUrl,
-		"POST",
-		&data,
+		onlineHelper.authData,
 		header,
 		cookies,
 	)

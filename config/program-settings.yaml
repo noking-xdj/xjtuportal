@@ -63,14 +63,14 @@ online:
   portal_server:
     hostname: "10.184.6.32"
     fake_redirect_path: "/?userip=10.180.0.1&nasip=10.6.0.1&usermac=00:11:22:33:44:55"
-    online_path: "/portal/api/v2/online"
+    online_path: "/portal-conversion/api/v3/portal/connect"
 
 session:
   portal_server:
     hostname: "http://10.184.6.32"
-    # session_path: "/portal/api/v2/session"
-    session_list_path: "/portal/api/v2/session/list"
-    logout_path: "/portal/api/v2/session/acctUniqueId"
+    # session_path: "/portal-conversion/api/v3/session"
+    session_list_path: "/portal-conversion/api/v3/session/list"
+    logout_path: "/portal-conversion/api/v3/session/acctUniqueId"
   speed_check_server:
     hostname: "https://speed.xjtu.edu.cn"
     get_ip_path: "/backend/getIP"

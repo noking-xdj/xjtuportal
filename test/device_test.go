@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strings"
 	"testing"
-	"xjtuportal/component/basic"
 	"xjtuportal/component/device"
 )
 
@@ -69,17 +68,17 @@ func TestGetLocalInterfaceMac(t *testing.T) {
 
 func TestFindLogoutMac(t *testing.T) {
 
-	configHelper, loggerHelper, err := readConfig()
-	if err != nil {
-		basic.LoggerTemp.AddLog(basic.FATAL, fmt.Sprintf("%v", err))
-		t.Error("Initialization ConfigHelper & LoggerHelper failed")
-		return
-	}
-	interfaceHelper, err := device.InitInterfaceHelper(configHelper, loggerHelper)
-	if err != nil {
-		basic.LoggerTemp.AddLog(basic.ERROR, fmt.Sprintf("%v", err))
-		t.Error("Initialization InterfaceHelper failed")
-		return
+	interfaceHelper := &device.InterfaceHelper{
+		KnownMacList: []string{
+			"11:22:33:44:55:66",
+			"aa:bb:cc:dd:ee:ff",
+			"00:50:56:c0:00:08",
+		},
+		KnownMacMap: map[string]struct{}{
+			"11:22:33:44:55:66": {},
+			"aa:bb:cc:dd:ee:ff": {},
+			"00:50:56:c0:00:08": {},
+		},
 	}
 	// Test 0: Find an unknown MAC address at bottom
 	sessionMacList0 := []string{

@@ -58,7 +58,7 @@ out:
 				continue out
 			}
 
-			if port, err := strconv.Atoi(k); err != nil && port >= 0 && port <= 65535 {
+			if port, err := strconv.Atoi(k); err == nil && port >= 0 && port <= 65535 {
 				proxyPorts[port] = append(proxyPorts[port], v...)
 			}
 

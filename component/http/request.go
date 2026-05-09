@@ -1,6 +1,8 @@
 package http
 
 import (
+	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -106,8 +108,9 @@ func (requestHelper *RequestHelper) SendRequest(
 	}
 
 	// Response not empty
+	respBody := response.Body
 	defer func() {
-		err = response.Body.Close()
+		err = respBody.Close()
 		if err != nil {
 			response = nil
 			body = nil
@@ -135,4 +138,50 @@ func (requestHelper *RequestHelper) SendRequest(
 	}
 
 	return response, content, response.StatusCode, nil
+}
+
+func (requestHelper *RequestHelper) SendEncryptedRequest(
+	url string, data interface{}, header *http.Header, cookies []*http.Cookie,
+) (
+	response *http.Response, body []byte, statusCode int, err error,
+) {
+	var plainData []byte
+	if data != nil {
+		plainData, err = json.Marshal(data)
+		if err != nil {
+			return nil, nil, -1, err
+		}
+	}
+
+	encryptedData, err := EncryptPortalPayload(plainData)
+	if err != nil {
+		return nil, nil, -1, err
+	}
+
+	if header == nil {
+		header = &http.Header{}
+	}
+	header.Set("Content-Type", "application/json")
+
+	response, body, statusCode, err = requestHelper.SendRequest(
+		url,
+		http.MethodPost,
+		bytes.NewBufferString(encryptedData),
+		header,
+		cookies,
+	)
+	if err != nil {
+		return response, body, statusCode, err
+	}
+
+	if len(body) == 0 {
+		return response, body, statusCode, nil
+	}
+
+	body, err = DecryptPortalPayload(body)
+	if err != nil {
+		return response, body, statusCode, err
+	}
+
+	return response, body, statusCode, nil
 }
