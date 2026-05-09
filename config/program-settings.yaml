@@ -18,8 +18,8 @@ dns:
 
 connectivity:
   http:
-    internet: "http://202.108.22.5/"
-    # internet: "http://connectivitycheck.gstatic.com/generate_204"
+    internet: "http://connectivitycheck.gstatic.com/generate_204"
+    # internet: "http://202.108.22.5/"
     intranet: "http://10.184.6.32/"
   dns:
     domain:
@@ -59,7 +59,7 @@ connectivity:
       "10800:10810": [ "v2rayN" ]
 
 online:
-  bootstrap_url: "http://202.108.22.5/"
+  bootstrap_url: "http://connectivitycheck.gstatic.com/generate_204"
   portal_server:
     hostname: "10.184.6.32"
     fake_redirect_path: "/?userip=10.180.0.1&nasip=10.6.0.1&usermac=00:11:22:33:44:55"

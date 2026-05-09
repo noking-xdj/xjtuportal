@@ -5,12 +5,12 @@ import (
 )
 
 var (
-	version     = "0.1.0"
+	version     = "0.2.0"
 	release     = "alpha"
 	license     = "MIT"
 	description = "XJTUPortal v%s %s, a web portal authentication manager for XJTU iHarbor campus network."
 	copyright   = "Developed by Anonymous@XJTUANA, under %s License."
-	contact     = "Wechat Official: XJTUANA; QQ group: 832689858; Repo: https://github.com/RathLee0211/xjtuportal"
+	contact     = "Wechat Official: XJTUPortal; Repo: https://github.com/noking-xdj/xjtuportal"
 )
 
 func ProgramInfo() string {
